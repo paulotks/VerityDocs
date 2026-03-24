@@ -78,6 +78,38 @@ Isto cria `veritydocs.config.yaml`, `veritydocs/workflows.yaml`, a árvore `docs
 - **`veritydocs status --format md`** (ou `json`): visão agregada — configuração, changes abertos, resultado de `check`, rastreabilidade e decisões. Use **`--change <slug>`** quando houver várias pastas em `docs/changes/`.
 - **`veritydocs instructions <workflow> --format md`**: instruções para o workflow pedido (`propose`, `apply`, `verify`, `sync`, etc.), com passos prefixados `vrtdocs:<id>` e sugestões `recommended_cli`.
 
+#### Matriz: ferramenta, comandos slash e instructions
+
+O conteúdo canónico dos workflows é o mesmo em todo o lado; a diferença é **como** o coloca no contexto do agente.
+
+- **`veritydocs instructions <workflow> --format md`** (ou `json`) é o caminho **universal**: funciona em qualquer IDE, Claude Code, Copilot com terminal, CI ou script — é a mesma fonte de verdade que alimenta os artefactos gerados para o Cursor.
+- Os comandos **`/vrtdocs-<workflow>`** são **nativos só no Cursor** (ficheiros em `.cursor/commands/` no formato de slash commands do produto). Hoje **não** há equivalente automático gerado pelo VerityDocs para Windsurf, Antigravity ou outros IDEs neste repositório.
+
+| Ferramenta / contexto | Comandos slash `/vrtdocs-*` | `veritydocs instructions <workflow> --format md` |
+|-----------------------|----------------------------|-----------------------------------------------------|
+| **Cursor** | Sim — após `init`/`sync` com `cursor` em `tools` | Sim — mesmo roteiro; útil para cópia, JSON ou automação |
+| **Claude Code, Copilot (terminal), CI, scripts** | Não (sem slash VerityDocs nativo) | Sim — recomendado |
+| **Outros chats / IDEs** | Não | Sim — cole o output no chat ou peça ao agente para executar o comando no terminal |
+
+#### Comandos slash vrtdocs no Cursor
+
+Com **`--tools cursor`** no `init` (ou após **`veritydocs sync`** com `cursor` listado em `tools` em `veritydocs.config.yaml`), o projecto recebe ficheiros em **`.cursor/commands/`** com o padrão `vrtdocs-<workflow>.md`. No chat do Cursor, use o **comando slash** com o mesmo nome do ficheiro (sem `.md`): por exemplo **`/vrtdocs-propose`**, **`/vrtdocs-apply`**, **`/vrtdocs-verify`**.
+
+Cada comando carrega o roteiro daquele workflow (o mesmo âmbito que **`veritydocs instructions <workflow> --format md`**). Os identificadores `<workflow>` coincidem com a tabela [Workflows canónicos](#workflows-canónicos-veritydocs-instructions).
+
+| Comando slash | Workflow (`instructions`) | Resumo |
+|---------------|---------------------------|--------|
+| **`/vrtdocs-propose`** | `propose` | Novo change sob `docs/changes/<slug>/` (ficheiros núcleo). |
+| **`/vrtdocs-explore`** | `explore` | Explorar documentação existente; opcionalmente encaminhar para `propose`. |
+| **`/vrtdocs-apply`** | `apply` | Aplicar o plano do change aos documentos canónicos. |
+| **`/vrtdocs-archive`** | `archive` | Arquivar change concluído. |
+| **`/vrtdocs-verify`** | `verify` | Validações completas e relatório de verificação. |
+| **`/vrtdocs-sync`** | `sync` | Regenerar artefactos do agente (`veritydocs sync`). |
+| **`/vrtdocs-onboard`** | `onboard` | Orientação ao layout `docs/` e ao catálogo de workflows. |
+| **`/vrtdocs-lang`** | `lang` | Idioma do projecto na config + sync (sem tradução em massa silenciosa). |
+
+As regras geradas em **`.cursor/rules/`** (`veritydocs-core.mdc`, `veritydocs-workflows.mdc`) referem os disparadores conversacionais **`vrtdocs:<id>`** (mesmos ids que na coluna «Workflow»).
+
 ### 3. Propor, aplicar e fechar mudanças
 
 - Criar estrutura de mudança: `veritydocs change create <slug> --type requirement` (ou outro tipo listado em `veritydocs/workflows.yaml`).
@@ -153,7 +185,7 @@ O agente não precisa “adivinhar” o processo: use a CLI como fonte de verdad
 
 1. **Sincronizar contexto** — Peça ao agente (ou execute) `veritydocs status --format md` ou `--format json`. O payload inclui projeto, `workflows.active`, changes abertos, resultado de `check`, métricas de rastreabilidade, log de decisões e (se configurado) MCP Context7.
 
-2. **Carregar o roteiro do workflow** — Para cada fase conversacional, use `veritydocs instructions <workflow> --format md` (ou `json`). O output traz `body_markdown` com passos canónicos (prefixo `vrtdocs:<id>`) e `recommended_cli` com comandos a correr em seguida.
+2. **Carregar o roteiro do workflow** — No **Cursor**, pode usar os comandos slash **`/vrtdocs-<workflow>`** (só o Cursor expõe estes slash de forma nativa; ver [Matriz: ferramenta, comandos slash e instructions](#matriz-ferramenta-comandos-slash-e-instructions) e [Comandos slash vrtdocs no Cursor](#comandos-slash-vrtdocs-no-cursor)). Noutras ferramentas, use `veritydocs instructions <workflow> --format md` (ou `json`) e cole o resultado ou peça ao agente para o executar no terminal. O output traz `body_markdown` com passos canónicos (prefixo `vrtdocs:<id>`) e `recommended_cli` com comandos a correr em seguida.
 
 3. **Propor mudança** — No workflow **propose**, o agente cria `docs/changes/<slug>/` com `proposal.md`, `design.md`, `tasks.md` e `metadata.yaml`, alinhado a `veritydocs/workflows.yaml`. Em alternativa pode usar `veritydocs change create <slug> --type ...` para estruturar a pasta.
 
