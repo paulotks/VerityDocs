@@ -1,0 +1,117 @@
+# skill-evolution
+
+{% if is_en %}
+## Purpose
+
+**Meta-skill:** when documentation, decisions, or proposals introduce **new technologies, frameworks, or material patterns**, align **agent-facing artifacts** (rules, skills, workflows) and **`mcp.context7.stack`** with the real project stack. This skill is **agent-driven**; the CLI provides `veritydocs sync` as the regeneration primitive.
+
+## Config you must read
+
+- `veritydocs.config.yaml` → `mcp.context7.enabled`, `mcp.context7.auto_consult`, `mcp.context7.stack`
+- `tools` — only selected tools receive regenerated files
+- `workflows.active` / `veritydocs/workflows.yaml` — change-type rules may require stricter documentation
+
+## Triggers
+
+- New libraries, runtimes, clouds, or patterns named in `proposal.md`, `design.md`, `tasks.md`, or `DEC-*` in `{{ docs_root }}/audit/decisions-log.md`
+- `metadata.yaml` on an open change has `skill_evolution: true` (run this meta-skill before or after apply as appropriate)
+- User explicitly asks to refresh stack guidance or invokes `vrtdocs:sync` with stack churn
+
+## Context7 MCP contract (integration)
+
+**Goal:** enrich agent context with up-to-date library docs, not to block PRD/SPEC work.
+
+1. **Host tools** — On Cursor-like hosts, Context7 is usually exposed as:
+   - `{{ resolve_tool }}` — map a human technology name to a Context7 **library id**
+   - `{{ query_tool }}` — run a **focused** documentation query against that library
+
+   If your environment uses different tool names, use the equivalent Context7 **resolve** and **query** steps.
+
+2. **Resolve** — For each **new** normalized stack candidate (e.g. `nestjs`, `postgresql`):
+   - Call resolve with `libraryName` similar to the product name and a short `query` describing the project domain (e.g. “REST API with validation”).
+
+3. **Query** — After you have a `libraryId`, call query-docs with a **specific** question, for example:
+   - security defaults, recommended project layout, observability, data access patterns, or version-sensitive APIs
+   - one narrow query per concern; avoid a single huge prompt
+
+4. **Respect flags** — If `mcp.context7.enabled` is `false`, **do not** invoke MCP; still update `stack` from documented project truth when appropriate. If `auto_consult` is `false`, update `stack` but skip optional Context7 queries unless the user explicitly asks.
+
+5. **Degrade gracefully** — If MCP is unavailable, resolve fails, or the tool errors: continue documentation work, note the limitation to the user, and still persist stack entries that are **confirmed** project choices.
+
+## Algorithm (ordered)
+
+1. **Extract** — List technology/pattern candidates from the current change, decisions log, and user message (frameworks, DBs, brokers, clouds, major libs).
+2. **Normalize** — Map each candidate with the same idea as **stable stack slugs** (lowercase, hyphenated; dots allowed e.g. `next.js`). You can reason consistently with `veritydocs.skill_evolution.normalize_stack_entry` in code, but agents should apply the same rules when editing YAML by hand.
+3. **Compare** — Diff against `mcp.context7.stack`. Treat only **project-truth** items (agreed, not one-off experiments) as additions.
+4. **Consult (optional)** — For each new slug, if `enabled` and `auto_consult` and MCP works: resolve library id → query-docs for concise, actionable notes. Summarize; do not paste entire manuals into PRD/SPEC.
+5. **Persist** — Merge new slugs into `mcp.context7.stack` (dedupe, stable order), save `veritydocs.config.yaml`.
+6. **Regenerate** — From project root, run `veritydocs sync` so rules/skills/workflows for selected `tools` refresh from canonical templates + current config.
+7. **Communicate** — Report what was added to `stack`, whether MCP was used, and which files `sync` touched.
+
+## Anti-patterns
+
+- Adding speculative or trial-only libraries to `stack` without a recorded decision
+- Replacing product requirements with MCP snippets — **PRD/SPEC remain authoritative** for product intent
+- Failing the whole change because Context7 errored
+
+## Communication
+
+Use the project language from `veritydocs.config.yaml` when summarizing for the user.
+{% else %}
+## Finalidade
+
+**Meta-skill:** quando a documentação, decisões ou propostas introduzem **novas tecnologias, frameworks ou padrões relevantes**, alinhe **artefactos para o agente** (rules, skills, workflows) e **`mcp.context7.stack`** com o stack real do projecto. O fluxo é **conduzido pelo agente**; a CLI expõe `veritydocs sync` como primitiva de regeneração.
+
+## Configuração a ler
+
+- `veritydocs.config.yaml` → `mcp.context7.enabled`, `mcp.context7.auto_consult`, `mcp.context7.stack`
+- `tools` — só as ferramentas seleccionadas recebem ficheiros regenerados
+- `workflows.active` / `veritydocs/workflows.yaml` — tipos de mudança podem exigir documentação mais estrita
+
+## Gatilhos
+
+- Novas bibliotecas, runtimes, clouds ou padrões mencionados em `proposal.md`, `design.md`, `tasks.md`, ou `DEC-*` em `{{ docs_root }}/audit/decisions-log.md`
+- `metadata.yaml` de um change aberto com `skill_evolution: true` (executar este meta-skill antes ou depois do apply conforme o contexto)
+- Pedido explícito para actualizar orientação de stack ou `vrtdocs:sync` com alteração de stack
+
+## Contrato Context7 MCP (integração)
+
+**Objectivo:** enriquecer o contexto do agente com documentação actualizada de bibliotecas, sem bloquear o trabalho em PRD/SPEC.
+
+1. **Tools no host** — Em ambientes tipo Cursor, o Context7 expõe normalmente:
+   - `{{ resolve_tool }}` — mapear o nome da tecnologia para um **library id** Context7
+   - `{{ query_tool }}` — executar uma consulta **focada** à documentação dessa biblioteca
+
+   Se o ambiente usar outros nomes, use os passos equivalentes de **resolve** e **query** do Context7.
+
+2. **Resolve** — Para cada candidato **novo** normalizado (ex.: `nestjs`, `postgresql`):
+   - Chame resolve com `libraryName` próximo do produto e um `query` curto sobre o domínio (ex.: «API REST com validação»).
+
+3. **Query** — Com `libraryId`, chame query-docs com perguntas **específicas**, por exemplo:
+   - segurança por defeito, estrutura de projecto recomendada, observabilidade, padrões de acesso a dados, APIs sensíveis à versão
+   - uma pergunta estreita por tema; evite um único prompt enorme.
+
+4. **Respeitar flags** — Se `mcp.context7.enabled` for `false`, **não** invoque MCP; ainda pode actualizar `stack` com verdades documentadas. Se `auto_consult` for `false`, actualize `stack` mas omita consultas opcionais salvo pedido explícito do utilizador.
+
+5. **Degradação graciosa** — MCP indisponível, resolve a falhar ou erro do tool: continue o trabalho documental, informe a limitação, e persista entradas de `stack` que sejam **decisões confirmadas** do projecto.
+
+## Algoritmo (ordenado)
+
+1. **Extrair** — Liste candidatos a tecnologia/padrão a partir do change actual, registo de decisões e mensagem do utilizador.
+2. **Normalizar** — Slugs estáveis (minúsculas, hífens; pontos permitidos, ex. `next.js`). O mesmo critério que `veritydocs.skill_evolution.normalize_stack_entry` em código.
+3. **Comparar** — Diff face a `mcp.context7.stack`. Só adicione entradas que sejam **verdade do projecto**, não experiências pontuais.
+4. **Consultar (opcional)** — Por cada slug novo, se `enabled` e `auto_consult` e MCP funcional: resolve → query-docs; resuma; não copie manuais inteiros para PRD/SPEC.
+5. **Persistir** — Faça merge em `mcp.context7.stack` (sem duplicados, ordem estável), grave `veritydocs.config.yaml`.
+6. **Regenerar** — Na raiz do projecto, `veritydocs sync` para actualizar rules/skills/workflows das `tools` seleccionadas.
+7. **Comunicar** — Indique o que entrou no `stack`, se usou MCP, e que ficheiros o `sync` actualizou.
+
+## Anti-padrões
+
+- Acrescentar bibliotecas experimentais ao `stack` sem decisão registada
+- Substituir requisitos de produto por excertos MCP — **PRD/SPEC continuam autoridade** para intenção de produto
+- Falhar a mudança inteira por erro do Context7
+
+## Comunicação
+
+Use o idioma do projecto em `veritydocs.config.yaml` ao resumir para o utilizador.
+{% endif %}

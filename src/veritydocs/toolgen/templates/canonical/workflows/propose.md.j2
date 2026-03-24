@@ -1,0 +1,55 @@
+# vrtdocs:propose
+
+{% if is_en %}
+## Goal
+
+Create a **structured documentation change** under `{{ docs_root }}/changes/<slug>/` from a natural-language request, without inventing undocumented requirements.
+
+## Preconditions
+
+- Read `veritydocs/workflows.yaml` for required artifacts, ordering, and change types.
+- Optionally run `veritydocs status --format json` to list active changes and recent decisions.
+
+## Steps
+
+1. **Parse** the user request; extract topic, urgency, and implied scope (PRD vs SPEC vs flows vs audit).
+2. **Classify** the change type (examples: `requirement`, `architecture`, `flow`, `criteria`, `decision`, `restructure`, `stack`). Pick the closest match; if ambiguous, state assumptions in `proposal.md`.
+3. **Choose slug** — short, kebab-case, unique under `{{ docs_root }}/changes/` (not in `archive/`).
+4. **Create folder** `{{ docs_root }}/changes/<slug>/` with:
+   - `proposal.md` — problem, motivation, context, success criteria.
+   - `design.md` — impacted files, how they change, REQ/DEC references, risks.
+   - `tasks.md` — checklist; each item should name target files and, when applicable, `REQ-*`, `DEC-*`, flow/audit links.
+   - `metadata.yaml` — type, status (e.g. `draft`), timestamps, author/tool, optional `skill_evolution` flag if stack may change.
+5. **Skill evolution** — If new tech/patterns appear, follow the `skill-evolution` skill (stack + sync when appropriate).
+6. **Validate** — Run `veritydocs check --format json` and fix blocking issues or document them in `design.md`.
+
+## Output to user
+
+Summarise slug, type, files created, and recommended next step (`vrtdocs:apply` or review).
+{% else %}
+## Objectivo
+
+Criar uma **mudança documental estruturada** em `{{ docs_root }}/changes/<slug>/` a partir de um pedido em linguagem natural, sem inventar requisitos não documentados.
+
+## Pré-condições
+
+- Leia `veritydocs/workflows.yaml` para artefactos obrigatórios, ordem e tipos de mudança.
+- Opcional: `veritydocs status --format json` para listar changes activos e decisões recentes.
+
+## Passos
+
+1. **Interpretar** o pedido; extrair tópico, urgência e âmbito implícito (PRD vs SPEC vs fluxos vs auditoria).
+2. **Classificar** o tipo de mudança (exemplos: `requirement`, `architecture`, `flow`, `criteria`, `decision`, `restructure`, `stack`). Escolha o mais próximo; se ambíguo, declare suposições em `proposal.md`.
+3. **Escolher slug** — curto, kebab-case, único em `{{ docs_root }}/changes/` (não em `archive/`).
+4. **Criar pasta** `{{ docs_root }}/changes/<slug>/` com:
+   - `proposal.md` — problema, motivação, contexto, critérios de sucesso.
+   - `design.md` — ficheiros afectados, como mudam, referências REQ/DEC, riscos.
+   - `tasks.md` — checklist; cada item deve nomear ficheiros alvo e, quando aplicável, `REQ-*`, `DEC-*`, ligações a fluxos/auditoria.
+   - `metadata.yaml` — tipo, estado (ex.: `draft`), tempos, autor/ferramenta, flag opcional `skill_evolution` se o stack puder mudar.
+5. **Evolução de skills** — Se surgirem tecnologias/padrões novos, siga o skill `skill-evolution` (stack + sync quando fizer sentido).
+6. **Validar** — Execute `veritydocs check --format json` e corrija bloqueios ou documente-os em `design.md`.
+
+## Saída para o utilizador
+
+Resuma slug, tipo, ficheiros criados e próximo passo recomendado (`vrtdocs:apply` ou revisão).
+{% endif %}

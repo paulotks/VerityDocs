@@ -1,0 +1,23 @@
+name: "VerityDocs Check"
+description: "Executa veritydocs check em um projeto"
+inputs:
+  config:
+    description: "Caminho do arquivo de configuracao"
+    required: false
+    default: "VerityDocs.config.json"
+  strict:
+    description: "Ativa validacao estrita"
+    required: false
+    default: "false"
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      run: pip install veritydocs
+    - shell: bash
+      run: |
+        if [ "${{ inputs.strict }}" = "true" ]; then
+          veritydocs check --config "${{ inputs.config }}" --strict
+        else
+          veritydocs check --config "${{ inputs.config }}"
+        fi

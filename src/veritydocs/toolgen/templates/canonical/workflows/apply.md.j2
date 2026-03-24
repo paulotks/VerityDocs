@@ -1,0 +1,65 @@
+# vrtdocs:apply
+
+{% if is_en %}
+## Goal
+
+Execute an **open change**: edit PRD/SPEC/flows/audit per `design.md` and `tasks.md`, then validate with CLI.
+
+## Preconditions
+
+- Active change folder `{{ docs_root }}/changes/<slug>/` with `tasks.md` and `design.md`.
+- Prefer `metadata.yaml` status indicating the change is approved for application (e.g. `ready` / team convention).
+
+## Rules
+
+1. Read **`design.md`** first for intent and file-level impact.
+2. Work **`tasks.md` sequentially**; mark items complete as you go (checkbox style or notes per project convention).
+3. **Edit in place** unless the change explicitly uses delta blocks / strict-change mode per `veritydocs/workflows.yaml`.
+4. Preserve **`REQ-*` / `DEC-*`** identifiers; add new ones consistently with existing sequences.
+5. After substantive edits, update **`{{ docs_root }}/traceability.md`** if the project maintains it alongside `veritydocs trace`.
+6. Record new decisions via **`decision-capture`** when applicable.
+
+## Closing steps (project root)
+
+```text
+veritydocs trace --format json
+veritydocs check --format json
+```
+
+If `check` reports errors, fix or document blockers before telling the user the apply is done.
+
+## Metadata
+
+Set `metadata.yaml` status to **`applied`** (or project equivalent) with timestamp when all tasks are complete and checks pass.
+{% else %}
+## Objectivo
+
+Executar um **change aberto**: editar PRD/SPEC/fluxos/auditoria segundo `design.md` e `tasks.md`, depois validar com a CLI.
+
+## Pré-condições
+
+- Pasta activa `{{ docs_root }}/changes/<slug>/` com `tasks.md` e `design.md`.
+- De preferência `metadata.yaml` com estado que indique aprovação para aplicar (ex.: `ready` / convenção da equipa).
+
+## Regras
+
+1. Leia **`design.md`** primeiro para intenção e impacto por ficheiro.
+2. Trabalhe **`tasks.md` em sequência**; marque itens concluídos (estilo checkbox ou notas da equipa).
+3. **Edite in-place** salvo se o change usar blocos delta / modo strict-change segundo `veritydocs/workflows.yaml`.
+4. Preserve identificadores **`REQ-*` / `DEC-*`**; acrescente novos de forma coerente com sequências existentes.
+5. Após edições substantivas, actualize **`{{ docs_root }}/traceability.md`** se o projecto o mantiver juntamente com `veritydocs trace`.
+6. Registe decisões novas via **`decision-capture`** quando aplicável.
+
+## Passos finais (raiz do projecto)
+
+```text
+veritydocs trace --format json
+veritydocs check --format json
+```
+
+Se `check` reportar erros, corrija ou documente bloqueios antes de declarar o apply concluído.
+
+## Metadata
+
+Defina em `metadata.yaml` o estado **`applied`** (ou equivalente do projecto) com timestamp quando todas as tasks estiverem feitas e os checks passarem.
+{% endif %}

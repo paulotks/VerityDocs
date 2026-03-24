@@ -1,0 +1,47 @@
+# vrtdocs:sync
+
+{% if is_en %}
+## Goal
+
+**Regenerate agent artifacts** (rules, skills, workflow commands) from `veritydocs.config.yaml` and canonical templates so tooling matches the documented stack and profile.
+
+## Preconditions
+
+- Config present: `veritydocs.config.yaml` (or legacy JSON) with `tools` list and project metadata.
+- CLI installed: run from project root.
+
+## Steps
+
+1. Read full config and `{{ docs_root }}/audit/decisions-log.md` for stack hints.
+2. Run **`veritydocs sync`** (CLI command). It should re-invoke tool generation for each selected tool without deleting artifacts for unselected tools.
+3. If Context7 is enabled, optional queries per stack entry for refreshed guidance text (degrades gracefully if MCP unavailable).
+4. Summarise files touched under `.cursor/`, `.claude/`, etc., for the user.
+
+## When to run
+
+- After `skill-evolution` updates stack.
+- After changing `tools`, `profile`, or language in config.
+- When `veritydocs check` warns about outdated generated headers/hashes.
+{% else %}
+## Objectivo
+
+**Regenerar artefactos do agente** (rules, skills, comandos de workflow) a partir de `veritydocs.config.yaml` e templates canónicos, alinhando ferramentas ao stack e perfil documentados.
+
+## Pré-condições
+
+- Config presente: `veritydocs.config.yaml` (ou JSON legado) com lista `tools` e metadados do projecto.
+- CLI instalada: executar na raiz do projecto.
+
+## Passos
+
+1. Leia a config completa e `{{ docs_root }}/audit/decisions-log.md` para pistas de stack.
+2. Execute **`veritydocs sync`** (comando CLI). Deve voltar a gerar artefactos por ferramenta seleccionada sem apagar artefactos de ferramentas não seleccionadas.
+3. Se o Context7 estiver activo, consultas opcionais por entrada do stack para texto actualizado (degrada graciosamente sem MCP).
+4. Resuma ficheiros alterados em `.cursor/`, `.claude/`, etc., para o utilizador.
+
+## Quando executar
+
+- Após actualizações de stack por `skill-evolution`.
+- Após mudar `tools`, `profile` ou idioma na config.
+- Quando `veritydocs check` avisar sobre headers/hashes gerados desactualizados.
+{% endif %}

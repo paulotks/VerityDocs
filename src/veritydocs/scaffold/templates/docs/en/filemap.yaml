@@ -1,0 +1,18 @@
+prd:
+  _index: _index.md
+  vision: 00-vision-scope.md
+  users_rbac: 01-users-rbac.md
+  user_journey: 02-user-journey.md
+  functional: 03-functional-requirements.md
+  nonfunctional: 04-non-functional-requirements.md
+  acceptance: 05-acceptance-criteria.md
+  metrics: 06-metrics-risks.md
+spec:
+  _index: _index.md
+  vision: 00-architecture-vision.md
+  modules: 01-platform-modules.md
+  data_model: 02-data-model.md
+  state_machines: 03-state-machines-scoring.md
+  rbac: 04-rbac-permissions.md
+  backlog: 05-backlog-glossary.md
+  complementary: 06-complementary-definitions.md

@@ -1,0 +1,35 @@
+# vrtdocs:lang
+
+{% if is_en %}
+## Goal
+
+Switch the **project language** for VerityDocs metadata and future agent communication **without** mass-regenerating existing PRD/SPEC prose unless the user asks.
+
+## Steps
+
+1. Confirm target locale (e.g. `en`, `pt-BR`) with the user.
+2. Update `veritydocs.config.yaml` field that stores project language (e.g. `project.language` per project schema).
+3. State clearly: **existing** markdown under `{{ docs_root }}/` stays as-is unless they request translation or a dedicated change.
+4. Run **`veritydocs sync`** so newly generated rules/skills/commands use the updated locale for template rendering.
+5. From this point, prefer responding in the new language for VerityDocs operations and summaries.
+
+## Do not
+
+Silently rewrite large bodies of PRD/SPEC; that belongs in a scoped `vrtdocs:propose` with explicit translation/design tasks.
+{% else %}
+## Objectivo
+
+Mudar o **idioma do projecto** para metadados VerityDocs e comunicação futura do agente **sem** regenerar em massa o texto existente do PRD/SPEC salvo pedido explícito.
+
+## Passos
+
+1. Confirme com o utilizador o locale alvo (ex.: `en`, `pt-BR`).
+2. Actualize em `veritydocs.config.yaml` o campo que guarda o idioma do projecto (ex.: `project.language` conforme o schema do projecto).
+3. Deixe claro: markdown **existente** em `{{ docs_root }}/` mantém-se salvo pedido de tradução ou change dedicado.
+4. Execute **`veritydocs sync`** para que rules/skills/comandos gerados de novo usem o locale actualizado nos templates.
+5. Daqui em diante, prefira responder no novo idioma para operações e resumos VerityDocs.
+
+## Não faça
+
+Reescrever silenciosamente grandes blocos de PRD/SPEC; isso pertence a um `vrtdocs:propose` com tarefas explícitas de tradução/desenho.
+{% endif %}

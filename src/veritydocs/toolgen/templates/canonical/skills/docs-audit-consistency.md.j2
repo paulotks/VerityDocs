@@ -1,0 +1,51 @@
+# docs-audit-consistency
+
+{% if is_en %}
+## Purpose
+
+Maintain **alignment between PRD and SPEC**: every material requirement should be traceable, and SPEC should not claim behaviour that PRD does not support.
+
+## What to verify
+
+1. **REQ coverage** — For `REQ-*` in PRD, check SPEC sections (and module mapping in `{{ docs_root }}/audit/step0-module-mapping.json` when present) for explicit trace lines or “Rastreio PRD” references.
+2. **Orphans** — Flag SPEC statements that reference missing or obsolete `REQ-*` IDs.
+3. **Decisions** — Cross-check `DEC-*` in `{{ docs_root }}/audit/decisions-log.md` with SPEC text; decisions should be referenced where they constrain design.
+4. **Severity** — Classify gaps as blocking vs non-blocking using project conventions in `veritydocs.config.yaml` / audit templates.
+
+## CLI support
+
+Run from project root when appropriate:
+
+- `veritydocs check --format json` — structural and consistency checks.
+- `veritydocs trace --format json` — traceability matrix inputs.
+- `veritydocs audit` — staged audit outputs under `{{ docs_root }}/audit/output/` when configured.
+
+## Output style
+
+- List **concrete** gaps: file path, REQ/DEC ID, one-line issue, suggested fix (edit target).
+- Prefer actionable tasks over generic “review PRD” advice.
+{% else %}
+## Finalidade
+
+Manter **alinhamento entre PRD e SPEC**: cada requisito material deve ser rastreável, e a SPEC não deve afirmar comportamento sem suporte no PRD.
+
+## O que verificar
+
+1. **Cobertura de REQ** — Para cada `REQ-*` no PRD, verifique secções da SPEC (e o mapeamento modular em `{{ docs_root }}/audit/step0-module-mapping.json` quando existir) por linhas de rastreio ou referências “Rastreio PRD”.
+2. **Órfãos** — Sinalize afirmações na SPEC que referenciam `REQ-*` inexistentes ou obsoletos.
+3. **Decisões** — Cruze `DEC-*` em `{{ docs_root }}/audit/decisions-log.md` com o texto da SPEC; decisões devem estar referenciadas onde condicionam o desenho.
+4. **Severidade** — Classifique lacunas como bloqueantes ou não, segundo convenções do projecto em `veritydocs.config.yaml` / templates de auditoria.
+
+## Suporte da CLI
+
+Na raiz do projecto, quando fizer sentido:
+
+- `veritydocs check --format json` — verificações estruturais e de consistência.
+- `veritydocs trace --format json` — insumos para a matriz de rastreabilidade.
+- `veritydocs audit` — saídas por etapas em `{{ docs_root }}/audit/output/` quando configurado.
+
+## Estilo de saída
+
+- Liste lacunas **concretas**: caminho do ficheiro, ID REQ/DEC, problema numa linha, correcção sugerida (ficheiro alvo).
+- Prefira tarefas accionáveis a conselhos genéricos do tipo “rever PRD”.
+{% endif %}

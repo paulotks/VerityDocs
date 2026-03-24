@@ -1,0 +1,79 @@
+# Mensagens CLI e strings do gerador (pt-BR). Fallback canónico para chaves em falta.
+
+init_done: "Projeto VerityDocs inicializado com sucesso."
+check_ok: "Consistencia valida."
+check_fail: "Inconsistencias encontradas."
+error_config_not_found: "Ficheiro de config nao encontrado: {path}"
+error_invalid_json: "JSON invalido em {path}: {detail}"
+error_invalid_yaml: "YAML invalido em {path}: {detail}"
+error_validation: "Config invalida em {path}: {detail}"
+error_generic: "Erro ao executar comando: {detail}"
+module_not_found: "Modulo nao encontrado: {module_id}"
+draft_saved: "Draft salvo em {path}"
+batch_input_invalid: "Entrada --batch invalida. Esperado JSON com campo 'description'."
+report_html_written: "Relatorio HTML gerado em {path}"
+version_label: "VerityDocs versao {version}"
+sync_no_tools: "Nenhuma ferramenta na config; nada a regenerar."
+sync_done: "Regenerados {count} ficheiro(s) de artefactos."
+workflows_validate_ok: "veritydocs/workflows.yaml válido ({path})."
+workflows_validate_fail: "veritydocs/workflows.yaml inválido ({path}): {detail}"
+flows_done: "Diagramas Mermaid gerados: {n_func} REQ(s) funcionais, {n_j} seccao(oes) de jornada."
+flows_dry_run: "Dry run — usaria {count} cabecalho(s) REQ-FUNC; sem escrever ficheiros."
+flows_warning: "Aviso: {code}"
+flows_engine_config: "Nota: flows.engine e '{engine}'; `flows generate` continua a gerar a partir do PRD (gerador local)."
+
+change_stub_proposal: |
+  # Proposta
+
+  ## Contexto
+
+  ## Motivação
+
+  ## Critérios de sucesso
+
+change_stub_design: |
+  # Design de impacto
+
+  ## Ficheiros alvo
+
+  - `file:` … — `ids:` …
+
+  ## Riscos e notas
+
+change_stub_tasks: |
+  # Tarefas
+
+  - [ ] (bullet com `file:`, `ids:`, `notes:` conforme necessário)
+
+change_readme_archive_header: "## Histórico de arquivo"
+change_readme_archive_line: "- {date} — `{slug}` — {summary}"
+change_create_done: "Change `{slug}` criado em {path}"
+change_mark_applied_done: "Change `{slug}` marcado como applied."
+change_archive_done: "Change arquivado em `{path}`"
+
+module_titles:
+  - Visao e escopo
+  - Usuarios e RBAC
+  - Jornada do usuario
+  - Requisitos funcionais
+  - Requisitos nao funcionais
+  - Criterios de aceite
+  - Metricas e riscos
+
+docs_scaffold:
+  trace_header: "# Matriz de Rastreabilidade\n\n"
+  trace_table: "| REQ / grupo | PRD | SPEC | Notas |\n|-------------|-----|------|-------|\n"
+  flows_index: "# Indice de flows\n\nAdicione fontes Mermaid em `docs/flows/` e referencie-as no PRD/SPEC como `FLOW-*`.\n"
+  changes_readme: |
+    # Ciclo de mudancas
+
+    Changes abertos nesta pasta; trabalho concluido fica em `archive/`.
+    Cada change usa `proposal.md`, `design.md` e `tasks.md` (ver workflows VerityDocs).
+  audit_readme: |
+    # Fluxo de auditoria
+
+    Mapeamento por modulo, auditorias e relatorios consolidados. Saidas em `output/`.
+  decisions_log: |
+    # Decisions log
+
+    Registe decisoes tecnicas como `DEC-*` e referencie-as nos ficheiros SPEC.

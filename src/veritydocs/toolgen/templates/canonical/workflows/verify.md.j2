@@ -1,0 +1,45 @@
+# vrtdocs:verify
+
+{% if is_en %}
+## Goal
+
+Run a **verification pass** across documentation quality: consistency, traceability, audit outputs, and agent-side sanity checks.
+
+## CLI battery (project root)
+
+1. `veritydocs check --strict --format json` (or the strictest mode available).
+2. `veritydocs trace --format json`.
+3. `veritydocs audit --all --output-dir {{ docs_root }}/audit/output` (adjust flags to match project config).
+
+## Additional agent checks
+
+- **DEC coverage** — Each `DEC-*` in `decisions-log.md` should be referenced from SPEC where it binds design.
+- **Stale changes** — Open `{{ docs_root }}/changes/*` folders older than team SLA (if configured); flag for apply or archive.
+- **Artifact drift** — If rules/skills include `generatedBy` / `configHash`, compare with current `veritydocs.config.yaml` and suggest `veritydocs sync`.
+- **Flow drift** — Compare key `REQ-FUNC-*` items to `{{ docs_root }}/flows/` for obvious mismatches.
+
+## Report
+
+Write or update `{{ docs_root }}/audit/verification-report.md` with: date, commands run, pass/fail summary, blocking vs warning lists, and recommended follow-up workflows (`vrtdocs:propose`, `vrtdocs:apply`, `vrtdocs:sync`).
+{% else %}
+## Objectivo
+
+Executar uma **passagem de verificação** à qualidade documental: consistência, rastreabilidade, saídas de auditoria e checagens adicionais pelo agente.
+
+## Bateria CLI (raiz do projecto)
+
+1. `veritydocs check --strict --format json` (ou o modo mais estrito disponível).
+2. `veritydocs trace --format json`.
+3. `veritydocs audit --all --output-dir {{ docs_root }}/audit/output` (ajuste flags à config do projecto).
+
+## Checagens adicionais do agente
+
+- **Cobertura DEC** — Cada `DEC-*` em `decisions-log.md` deve estar referenciado na SPEC onde condiciona o desenho.
+- **Changes antigos** — Pastas abertas em `{{ docs_root }}/changes/*` acima do SLA da equipa (se definido); sinalize para apply ou arquivo.
+- **Desvio de artefactos** — Se rules/skills tiverem `generatedBy` / `configHash`, compare com `veritydocs.config.yaml` actual e sugira `veritydocs sync`.
+- **Desvio de fluxos** — Compare `REQ-FUNC-*` chave com `{{ docs_root }}/flows/` para discrepâncias óbvias.
+
+## Relatório
+
+Escreva ou actualize `{{ docs_root }}/audit/verification-report.md` com: data, comandos executados, resumo pass/fail, listas bloqueantes vs aviso, e workflows de seguimento (`vrtdocs:propose`, `vrtdocs:apply`, `vrtdocs:sync`).
+{% endif %}

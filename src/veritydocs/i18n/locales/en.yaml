@@ -1,0 +1,79 @@
+# CLI and generator strings (English). Community packs can add new locale files.
+
+init_done: "VerityDocs project initialized successfully."
+check_ok: "Consistency is valid."
+check_fail: "Inconsistencies found."
+error_config_not_found: "Configuration file not found: {path}"
+error_invalid_json: "Invalid JSON in {path}: {detail}"
+error_invalid_yaml: "Invalid YAML in {path}: {detail}"
+error_validation: "Invalid configuration in {path}: {detail}"
+error_generic: "Command failed: {detail}"
+module_not_found: "Module not found: {module_id}"
+draft_saved: "Draft saved at {path}"
+batch_input_invalid: "Invalid --batch input. Expected JSON with 'description'."
+report_html_written: "HTML report generated at {path}"
+version_label: "VerityDocs version {version}"
+sync_no_tools: "No tools configured in config; nothing to regenerate."
+sync_done: "Regenerated {count} artifact file(s)."
+workflows_validate_ok: "veritydocs/workflows.yaml is valid ({path})."
+workflows_validate_fail: "Invalid veritydocs/workflows.yaml ({path}): {detail}"
+flows_done: "Generated Mermaid flows: {n_func} functional REQ(s), {n_j} journey section(s)."
+flows_dry_run: "Dry run — would use {count} functional REQ heading(s); no files written."
+flows_warning: "Warning: {code}"
+flows_engine_config: "Note: flows.engine is '{engine}'; `flows generate` still builds diagrams from PRD headings (local generator)."
+
+change_stub_proposal: |
+  # Proposal
+
+  ## Context
+
+  ## Motivation
+
+  ## Success criteria
+
+change_stub_design: |
+  # Impact design
+
+  ## Target files
+
+  - `file:` … — `ids:` …
+
+  ## Risks and notes
+
+change_stub_tasks: |
+  # Tasks
+
+  - [ ] (bullets with `file:`, `ids:`, `notes:` as needed)
+
+change_readme_archive_header: "## Archive history"
+change_readme_archive_line: "- {date} — `{slug}` — {summary}"
+change_create_done: "Change `{slug}` created at {path}"
+change_mark_applied_done: "Change `{slug}` marked as applied."
+change_archive_done: "Change archived at `{path}`"
+
+module_titles:
+  - Vision and scope
+  - Users and RBAC
+  - User journey
+  - Functional requirements
+  - Non-functional requirements
+  - Acceptance criteria
+  - Metrics and risks
+
+docs_scaffold:
+  trace_header: "# Traceability matrix\n\n"
+  trace_table: "| REQ / group | PRD | SPEC | Notes |\n|-------------|-----|------|-------|\n"
+  flows_index: "# Flow index\n\nAdd Mermaid sources under `docs/flows/` and reference them from the PRD/SPEC as `FLOW-*`.\n"
+  changes_readme: |
+    # Change lifecycle
+
+    Open changes live in this folder; completed work is archived under `archive/`.
+    Each change uses `proposal.md`, `design.md`, and `tasks.md` (see VerityDocs workflows).
+  audit_readme: |
+    # Audit pipeline
+
+    Module mapping, per-module audits, and consolidated reports. Outputs go to `output/`.
+  decisions_log: |
+    # Decisions log
+
+    Record technical decisions as `DEC-*` and reference them from SPEC files.

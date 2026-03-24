@@ -1,0 +1,18 @@
+prd:
+  _index: _index.md
+  vision: 00-visao-escopo.md
+  users_rbac: 01-usuarios-rbac.md
+  user_journey: 02-jornada-usuario.md
+  functional: 03-requisitos-funcionais.md
+  nonfunctional: 04-requisitos-nao-funcionais.md
+  acceptance: 05-criterios-aceite.md
+  metrics: 06-metricas-riscos.md
+spec:
+  _index: _index.md
+  vision: 00-visao-arquitetura.md
+  modules: 01-modulos-plataforma.md
+  data_model: 02-modelo-dados.md
+  state_machines: 03-maquinas-estados-scoring.md
+  rbac: 04-rbac-permissoes.md
+  backlog: 05-backlog-glossario.md
+  complementary: 06-definicoes-complementares.md

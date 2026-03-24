@@ -1,0 +1,7 @@
+﻿{
+  "module_id": "MXX",
+  "prd_findings": [],
+  "spec_findings": [],
+  "cross_check": {"coverage_rows": [], "blocking_conflicts": []},
+  "executive_summary": {"total_findings": 0, "bloqueantes": 0, "importantes": 0, "menores": 0}
+}

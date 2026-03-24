@@ -1,0 +1,12 @@
+﻿{
+  "step": "read-indexes",
+  "modules": [
+    {
+      "module_id": "M01",
+      "title": "Visao e escopo",
+      "prd_path": "docs/PRD/00-visao-escopo.md",
+      "spec_primary": ["docs/SPEC/00-visao-arquitetura.md"],
+      "spec_secondary": []
+    }
+  ]
+}

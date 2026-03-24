@@ -1,0 +1,57 @@
+# vrtdocs:explore
+
+{% if is_en %}
+## Goal
+
+**Structured discovery** on a topic using existing documentation; surface gaps and optionally funnel into `vrtdocs:propose`.
+
+## Preconditions
+
+- `veritydocs status --format json` for current docs/changes overview.
+- Search `{{ docs_root }}/PRD/`, `{{ docs_root }}/SPEC/`, `{{ docs_root }}/flows/`, `{{ docs_root }}/audit/` for the topic.
+
+## Interview flow
+
+1. **Context** — Summarise what is already documented (with file pointers and REQ IDs if any).
+2. **Scope** — Ask what slice the user cares about (module, persona, timeframe).
+3. **Alternatives** — List realistic options from docs; if docs are silent, say so instead of inventing.
+4. **Trade-offs** — Compare options against documented NFRs/constraints.
+5. **Gaps** — Explicitly list missing decisions, REQ coverage holes, or stale flows.
+6. **Implicit decisions** — Call out “we behave as if X” without a `DEC-*`.
+7. **Recommendation** — Suggest next workflow (usually `vrtdocs:propose`) with a draft slug and change type.
+
+## Optional artifact
+
+If the user agrees, create `{{ docs_root }}/changes/explore-<topic>/summary.md` capturing Q&A and gaps (not a substitute for a full change).
+
+## Handoff
+
+When the user confirms, transition to **vrtdocs:propose** with the explored scope encoded in `proposal.md` / `design.md`.
+{% else %}
+## Objectivo
+
+**Descoberta estruturada** sobre um tópico usando a documentação existente; evidenciar lacunas e, opcionalmente, encaminhar para `vrtdocs:propose`.
+
+## Pré-condições
+
+- `veritydocs status --format json` para visão geral de docs/changes.
+- Pesquisa em `{{ docs_root }}/PRD/`, `{{ docs_root }}/SPEC/`, `{{ docs_root }}/flows/`, `{{ docs_root }}/audit/` sobre o tópico.
+
+## Fluxo de entrevista
+
+1. **Contexto** — Resuma o que já está documentado (com apontadores a ficheiros e IDs REQ quando existirem).
+2. **Âmbito** — Pergunte que parte interessa (módulo, persona, janela temporal).
+3. **Alternativas** — Liste opções realistas a partir dos docs; se os docs calarem, diga-o em vez de inventar.
+4. **Trade-offs** — Compare opções com RNFs/restrições documentadas.
+5. **Lacunas** — Liste explicitamente decisões em falta, buracos de cobertura REQ ou fluxos obsoletos.
+6. **Decisões implícitas** — Aponte “comportamo-nos como X” sem `DEC-*`.
+7. **Recomendação** — Sugira o workflow seguinte (normalmente `vrtdocs:propose`) com slug e tipo de mudança.
+
+## Artefacto opcional
+
+Se o utilizador aceitar, crie `{{ docs_root }}/changes/explore-<tópico>/summary.md` com Q&A e lacunas (não substitui um change completo).
+
+## Transição
+
+Quando o utilizador confirmar, passe a **vrtdocs:propose** com o âmbito explorado reflectido em `proposal.md` / `design.md`.
+{% endif %}

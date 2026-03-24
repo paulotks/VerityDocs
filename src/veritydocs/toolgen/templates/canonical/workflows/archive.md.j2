@@ -1,0 +1,43 @@
+# vrtdocs:archive
+
+{% if is_en %}
+## Goal
+
+**Close the lifecycle** of an applied change: move it to archive and update the change log index.
+
+## Preconditions
+
+- `metadata.yaml` shows **`applied`** (or equivalent) for `{{ docs_root }}/changes/<slug>/`.
+- Decisions introduced in the change are reflected in `{{ docs_root }}/audit/decisions-log.md` when they are architectural/technical.
+
+## Steps
+
+1. Verify no pending tasks in `tasks.md`.
+2. Move `{{ docs_root }}/changes/<slug>/` to `{{ docs_root }}/changes/archive/YYYY-MM-DD-<slug>/` (use actual date).
+3. Append a row/section to `{{ docs_root }}/changes/README.md`: date, slug, one-line summary, link to archive path if desired.
+4. Re-run `veritydocs check --format json` if the project relies on path conventions for open changes.
+
+## Do not
+
+Archive a change that is still **draft** or **failed validation** unless the user explicitly requests abandonment (then document that in README as withdrawn).
+{% else %}
+## Objectivo
+
+**Fechar o ciclo de vida** de um change aplicado: mover para arquivo e actualizar o índice de changes.
+
+## Pré-condições
+
+- `metadata.yaml` indica **`applied`** (ou equivalente) para `{{ docs_root }}/changes/<slug>/`.
+- Decisões introduzidas no change estão em `{{ docs_root }}/audit/decisions-log.md` quando forem arquitecturais/técnicas.
+
+## Passos
+
+1. Verifique que não há tarefas pendentes em `tasks.md`.
+2. Mova `{{ docs_root }}/changes/<slug>/` para `{{ docs_root }}/changes/archive/AAAA-MM-DD-<slug>/` (use a data real).
+3. Acrescente linha/secção a `{{ docs_root }}/changes/README.md`: data, slug, resumo numa linha, ligação ao arquivo se fizer sentido.
+4. Volte a executar `veritydocs check --format json` se o projecto depender de convenções de caminho para changes abertos.
+
+## Não arquive
+
+Changes ainda em **rascunho** ou com **validação falhada**, salvo pedido explícito de abandono (documente nesse caso em README como retirado).
+{% endif %}

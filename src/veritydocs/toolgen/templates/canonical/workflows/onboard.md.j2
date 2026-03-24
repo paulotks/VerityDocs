@@ -1,0 +1,55 @@
+# vrtdocs:onboard
+
+{% if is_en %}
+## Goal
+
+**Onboard** a human or agent to the VerityDocs layout of project **{{ project_name }}** (domain: **{{ domain }}**, profile: **{{ profile }}**).
+
+## Tour
+
+1. **`{{ docs_root }}/README.md`** — entry point for doc consumers.
+2. **`{{ docs_root }}/PRD/`** — vision, users, journeys, functional/non-functional requirements, acceptance, metrics/risks.
+3. **`{{ docs_root }}/SPEC/`** — architecture vision, modules, data, state, RBAC, backlog, glossary.
+4. **`{{ docs_root }}/flows/`** — Mermaid and related diagrams.
+5. **`{{ docs_root }}/changes/`** — active proposals; **`archive/`** for completed ones.
+6. **`{{ docs_root }}/audit/`** — decisions log, module mapping, audit outputs.
+7. **Config** — `veritydocs.config.yaml`, **`veritydocs/workflows.yaml`** for change-type rules.
+
+## Workflows catalogue
+
+Explain the conversational triggers: `vrtdocs:propose`, `explore`, `apply`, `archive`, `verify`, `sync`, `onboard`, `lang`.
+
+## First actions
+
+Suggest a small, safe exercise: e.g. run `veritydocs status --format json`, then a micro-`vrtdocs:propose` for a typo-level doc fix to learn the folder pattern.
+
+## Language
+
+Speak in the project language from config; align with `vrtdocs:lang` if the user switches locale.
+{% else %}
+## Objectivo
+
+**Integrar** uma pessoa ou agente no layout VerityDocs do projecto **{{ project_name }}** (domínio: **{{ domain }}**, perfil: **{{ profile }}**).
+
+## Roteiro
+
+1. **`{{ docs_root }}/README.md`** — ponto de entrada para quem consome docs.
+2. **`{{ docs_root }}/PRD/`** — visão, utilizadores, jornadas, requisitos funcionais/não-funcionais, aceitação, métricas/riscos.
+3. **`{{ docs_root }}/SPEC/`** — visão arquitectural, módulos, dados, estado, RBAC, backlog, glossário.
+4. **`{{ docs_root }}/flows/`** — diagramas Mermaid e afins.
+5. **`{{ docs_root }}/changes/`** — propostas activas; **`archive/`** para concluídos.
+6. **`{{ docs_root }}/audit/`** — registo de decisões, mapeamento modular, saídas de auditoria.
+7. **Config** — `veritydocs.config.yaml`, **`veritydocs/workflows.yaml`** para regras por tipo de mudança.
+
+## Catálogo de workflows
+
+Explique os disparadores conversacionais: `vrtdocs:propose`, `explore`, `apply`, `archive`, `verify`, `sync`, `onboard`, `lang`.
+
+## Primeiras acções
+
+Sugira um exercício pequeno e seguro: ex. `veritydocs status --format json`, depois um micro-`vrtdocs:propose` para correcção documental trivial, para aprender o padrão de pastas.
+
+## Idioma
+
+Comunique no idioma do projecto na config; alinhe com `vrtdocs:lang` se o utilizador mudar locale.
+{% endif %}

@@ -1,0 +1,22 @@
+# PRD master index
+
+Project: **{{ project_name }}** · Domain: `{{ domain }}` · Language: `{{ language }}`
+
+Use this folder for product intent: who the users are, what the system must do, and how we measure success. Each file pairs with a SPEC module for traceability (`veritydocs trace`).
+
+## Sections
+
+| File | Topic |
+|------|--------|
+| `00-vision-scope.md` | Vision and scope |
+| `01-users-rbac.md` | Users and RBAC |
+| `02-user-journey.md` | User journey |
+| `03-functional-requirements.md` | Functional requirements |
+| `04-non-functional-requirements.md` | Non-functional requirements |
+| `05-acceptance-criteria.md` | Acceptance criteria |
+| `06-metrics-risks.md` | Metrics and risks |
+
+## Conventions
+
+- Requirement IDs: `REQ-{PREFIX}-NNN` (see `veritydocs.config.yaml`).
+- Prefer linking to SPEC files and `DEC-*` / `FLOW-*` when you add detail.

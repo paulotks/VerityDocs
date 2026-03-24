@@ -1,0 +1,45 @@
+# context-only-docs
+
+{% if is_en %}
+## Purpose
+
+Ground every answer, design, and edit in **documented facts** under `{{ docs_root }}/`. VerityDocs treats `{{ docs_root }}/` as the single source of truth for product intent (PRD), technical design (SPEC), flows, active changes, and audit outputs.
+
+## Rules
+
+1. **Read before asserting** — Open the relevant files under `{{ docs_root }}/PRD/`, `{{ docs_root }}/SPEC/`, `{{ docs_root }}/flows/`, `{{ docs_root }}/changes/`, and `{{ docs_root }}/audit/` before stating requirements, behaviour, or decisions.
+2. **No invented context** — Do not fabricate user stories, NFRs, APIs, or decisions. If something is missing, say it explicitly and offer a documentation path (e.g. `vrtdocs:propose` or intake) instead of guessing.
+3. **Stable identifiers** — When editing, preserve and align `REQ-*` (PRD) and `DEC-*` (decisions log) identifiers; do not rename or duplicate IDs without an explicit change proposal.
+4. **CLI-as-API** — When you need the current documentation state, prefer `veritydocs status --format json` (from project root) over assumptions.
+
+## When information is missing
+
+- Summarise what **is** documented and what **is not**.
+- Suggest creating or extending a change under `{{ docs_root }}/changes/<slug>/` with `proposal.md`, `design.md`, `tasks.md`, and `metadata.yaml`, following `veritydocs/workflows.yaml`.
+- Do not fill gaps with plausible but undocumented detail.
+
+## Communication
+
+Project language is configured in `veritydocs.config.yaml`. Respond to the user in that language when describing documentation work.
+{% else %}
+## Finalidade
+
+Baseie cada resposta, desenho e edição em **factos documentados** sob `{{ docs_root }}/`. O VerityDocs trata `{{ docs_root }}/` como fonte única de verdade para intenção de produto (PRD), desenho técnico (SPEC), fluxos, changes activos e saídas de auditoria.
+
+## Regras
+
+1. **Ler antes de afirmar** — Abra os ficheiros relevantes em `{{ docs_root }}/PRD/`, `{{ docs_root }}/SPEC/`, `{{ docs_root }}/flows/`, `{{ docs_root }}/changes/` e `{{ docs_root }}/audit/` antes de declarar requisitos, comportamento ou decisões.
+2. **Sem contexto inventado** — Não fabrique user stories, RNFs, APIs ou decisões. Se faltar informação, diga-o explicitamente e ofereça um caminho documental (ex.: `vrtdocs:propose` ou intake) em vez de supor.
+3. **Identificadores estáveis** — Ao editar, preserve e alinhe identificadores `REQ-*` (PRD) e `DEC-*` (registo de decisões); não renomeie nem duplique IDs sem proposta de mudança explícita.
+4. **CLI-as-API** — Quando precisar do estado actual da documentação, prefira `veritydocs status --format json` (na raiz do projecto) a suposições.
+
+## Quando falta informação
+
+- Resuma o que **está** documentado e o que **não está**.
+- Sugira criar ou alargar um change em `{{ docs_root }}/changes/<slug>/` com `proposal.md`, `design.md`, `tasks.md` e `metadata.yaml`, segundo `veritydocs/workflows.yaml`.
+- Não preencha lacunas com detalhe plausível mas não documentado.
+
+## Comunicação
+
+O idioma do projecto está em `veritydocs.config.yaml`. Responda ao utilizador nesse idioma ao descrever trabalho documental.
+{% endif %}

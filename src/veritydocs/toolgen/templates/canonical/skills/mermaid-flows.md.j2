@@ -1,0 +1,43 @@
+# mermaid-flows
+
+{% if is_en %}
+## Purpose
+
+Keep **diagrams** under `{{ docs_root }}/flows/` consistent with documented behaviour (especially functional requirements and state-related SPEC sections).
+
+## Conventions
+
+1. **Naming** — Prefer stable flow identifiers (e.g. `FLOW-<topic>`) referenced from PRD/SPEC or `{{ docs_root }}/flows/_index.md` when the project uses that pattern.
+2. **Syntax** — Use valid Mermaid (graph/flowchart, sequenceDiagram, stateDiagram-v2 as appropriate). Test that diagrams render in common viewers.
+3. **Traceability** — Each non-trivial flow should tie to at least one `REQ-FUNC-*` (or project equivalent) or an explicit note in SPEC when the flow is illustrative only.
+4. **Updates** — When requirements change, update the affected diagram in the same change (or a follow-up `tasks.md` item) so `vrtdocs:apply` does not leave stale visuals.
+
+## Where to place files
+
+- Primary location: `{{ docs_root }}/flows/`.
+- Link from SPEC or PRD journey sections when the flow is part of the contract.
+
+## When not to draw
+
+If requirements are ambiguous, document the ambiguity in `proposal.md` / PRD first; avoid diagrams that encode guessed behaviour.
+{% else %}
+## Finalidade
+
+Manter **diagramas** em `{{ docs_root }}/flows/` coerentes com o comportamento documentado (em especial requisitos funcionais e secções de estado na SPEC).
+
+## Convenções
+
+1. **Nomenclatura** — Prefira identificadores estáveis de fluxo (ex.: `FLOW-<tópico>`) referenciados no PRD/SPEC ou em `{{ docs_root }}/flows/_index.md` quando o projecto usar esse padrão.
+2. **Sintaxe** — Use Mermaid válido (graph/flowchart, sequenceDiagram, stateDiagram-v2 conforme o caso). Garanta que os diagramas renderizam em visualizadores comuns.
+3. **Rastreabilidade** — Cada fluxo não trivial deve ligar-se a pelo menos um `REQ-FUNC-*` (ou equivalente do projecto) ou a uma nota explícita na SPEC quando o fluxo for apenas ilustrativo.
+4. **Actualizações** — Quando os requisitos mudarem, actualize o diagrama afectado no mesmo change (ou num item de `tasks.md` dedicado) para que `vrtdocs:apply` não deixe figuras obsoletas.
+
+## Onde colocar ficheiros
+
+- Local principal: `{{ docs_root }}/flows/`.
+- Ligue a partir da SPEC ou de secções de jornada no PRD quando o fluxo fizer parte do contrato.
+
+## Quando não diagramar
+
+Se os requisitos forem ambíguos, documente a ambiguidade em `proposal.md` / PRD primeiro; evite diagramas que codificam comportamento suposto.
+{% endif %}

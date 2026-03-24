@@ -1,0 +1,43 @@
+# decision-capture
+
+{% if is_en %}
+## Purpose
+
+Record **architecture and technical decisions** so SPEC and implementation stay explainable and auditable.
+
+## Format
+
+1. **Log file** — Append to `{{ docs_root }}/audit/decisions-log.md` using the project’s `DEC-*` scheme (e.g. `DEC-001`).
+2. **Content** — Each entry should include: context, decision, consequences, alternatives considered (brief), and links to affected `REQ-*` or SPEC sections.
+3. **SPEC linkage** — Update SPEC to reference the `DEC-*` where the decision constrains design (APIs, data model, security, etc.).
+4. **Changes** — When a decision originates from a change folder, note the change slug in the entry or in `metadata.yaml` for that change.
+
+## Anti-patterns
+
+- “We decided X” only in chat — must land in `decisions-log.md` + SPEC when it affects design.
+- Duplicate `DEC-*` numbers — always take the next free ID consistent with the log.
+
+## CLI
+
+Use `veritydocs check` / `veritydocs trace` after edits to ensure references resolve where the toolchain validates them.
+{% else %}
+## Finalidade
+
+Registar **decisões de arquitetura e técnicas** para que a SPEC e a implementação permaneçam explicáveis e auditáveis.
+
+## Formato
+
+1. **Ficheiro de registo** — Acrescente entradas em `{{ docs_root }}/audit/decisions-log.md` com o esquema `DEC-*` do projecto (ex.: `DEC-001`).
+2. **Conteúdo** — Cada entrada deve incluir: contexto, decisão, consequências, alternativas consideradas (breve) e ligações a `REQ-*` ou secções da SPEC afectadas.
+3. **Ligação na SPEC** — Actualize a SPEC para referenciar o `DEC-*` onde a decisão condiciona o desenho (APIs, modelo de dados, segurança, etc.).
+4. **Changes** — Quando a decisão nascer de uma pasta de change, mencione o slug do change na entrada ou em `metadata.yaml` desse change.
+
+## Anti-padrões
+
+- “Decidimos X” só no chat — deve constar em `decisions-log.md` + SPEC quando afecta o desenho.
+- Números `DEC-*` duplicados — use sempre o próximo ID livre coerente com o registo.
+
+## CLI
+
+Após edições, use `veritydocs check` / `veritydocs trace` para garantir que as referências resolvem onde a ferramenta valida.
+{% endif %}

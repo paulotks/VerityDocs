@@ -1,0 +1,33 @@
+# traceability-update
+
+{% if is_en %}
+## Purpose
+
+After substantive edits to PRD, SPEC, flows, or decisions, keep the **global traceability picture** accurate.
+
+## Required habits
+
+1. **Run trace** — From project root: `veritydocs trace --format json` (or default format). Use output to see REQ/SPEC links and gaps.
+2. **Refresh `{{ docs_root }}/traceability.md`** — When the project treats it as generated or maintained, update it to reflect the latest matrix (follow local conventions in existing `traceability.md`).
+3. **Tasks discipline** — In `{{ docs_root }}/changes/<name>/tasks.md`, each task should reference target files and, when applicable, `REQ-*`, `DEC-*`, and flow/audit links (`file:`, `ids:`, `notes:` style if the template requires it).
+4. **Post-apply** — After `vrtdocs:apply`, run `veritydocs trace` and `veritydocs check` before declaring work complete.
+
+## Verify integration
+
+`veritydocs verify` (workflow) may combine strict check, trace, and audit; ensure your edits do not leave orphan references that `verify` would flag.
+{% else %}
+## Finalidade
+
+Após edições substantivas no PRD, SPEC, fluxos ou decisões, manter a **visão global de rastreabilidade** correcta.
+
+## Hábitos necessários
+
+1. **Executar trace** — Na raiz: `veritydocs trace --format json` (ou formato por omissão). Use a saída para ver ligações REQ/SPEC e lacunas.
+2. **Actualizar `{{ docs_root }}/traceability.md`** — Quando o projecto o tratar como gerido ou gerado, actualize-o para reflectir a matriz mais recente (siga convenções locais no ficheiro existente).
+3. **Disciplina nas tasks** — Em `{{ docs_root }}/changes/<nome>/tasks.md`, cada tarefa deve referenciar ficheiros alvo e, quando aplicável, `REQ-*`, `DEC-*` e ligações a fluxos/auditoria (estilo `file:`, `ids:`, `notes:` se o template o exigir).
+4. **Pós-apply** — Depois de `vrtdocs:apply`, execute `veritydocs trace` e `veritydocs check` antes de declarar o trabalho concluído.
+
+## Integração com verify
+
+O workflow `veritydocs:verify` pode combinar check estrito, trace e auditoria; garanta que as edições não deixam referências órfãs que o `verify` sinalizaria.
+{% endif %}
